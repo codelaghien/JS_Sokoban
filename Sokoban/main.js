@@ -39,7 +39,7 @@ function renderGame(currentGame) {
 		width -= 10;
 	}
 
-	let markup = '<table>';
+	let markup = '<table id="my_board">';
 
 	for (let row = 0; row < rows; row++) {
 		markup += createRow(width, row, columns, currentGame);
@@ -48,6 +48,24 @@ function renderGame(currentGame) {
 	markup += '</table>';
 
 	document.getElementById('board').innerHTML = markup;
+
+	if (
+		window.innerWidth < 800 ||
+		window.innerHeight < 800 ||
+		navigator.userAgent.match(/(iPod|iPhone|iPad)/) ||
+		/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+			navigator.userAgent
+		)
+	) {
+		document.getElementById('control').style.display = '';
+		if (window.innerWidth > window.innerHeight) {
+			document.getElementById('control').style.position = 'absolute';
+			document.getElementById('control').style.left = '10px';
+			document.getElementById('control').style.top = '100px';
+			document.getElementById('control').style.zIndex = 50;
+			document.getElementById('board').style.marginLeft = '100px';
+		}
+	}
 }
 
 function createRow(width, row, columns, currentGame) {
